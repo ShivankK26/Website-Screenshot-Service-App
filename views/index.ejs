@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <article>
+      <form onsubmit="doScreenshot(); return false;">
+        <input type="url" name="url" placeholder="Enter the URL">
+        <button type="submit">Screenshot!</button>
+      </form>
+      <img alt="Your Screenshot" src="" style="display:none;">
+    </article>
+
+    <script>
+      function doScreenshot() {
+        const url = document.querySelector('input[name=url]').value;
+        if (!url) return;
+        const img = document.querySelector('img');
+        img.style.display = 'none'; <%/* Used for hiding the image temporarily */%>
+        img.src = `/screenshot?url=${encodeURIComponent(url)}`; <%/* API Endpoint for displaying the image */%>
+        img.onload = function() { <%/* Displaying the image */%>
+          img.style.display = 'block';
+        }
+      }
+    </script>
+  </body>
+</html>
